@@ -21,3 +21,12 @@ resource "aws_instance" "app_server" {
     Name = var.instance_name
   }
 }
+
+resource "aws_instance" "manually_launched_instance" {
+  ami           = "ami-075686beab831bb7f"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "ImportedInstance"
+  }
+}
+
