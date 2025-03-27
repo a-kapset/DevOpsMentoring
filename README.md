@@ -20,13 +20,13 @@ Once you receive the invitation:
 - Accept it via email or GitHub notification
 - You’ll now have push and PR permissions
 
-(Don't forget to install Git it hasn't been installed yet https://git-scm.com/downloads)
+(Don't forget to install Git if hasn't been installed yet https://git-scm.com/downloads)
 
 ---
 
 ## 2. Set Up SSH Access to GitHub
 
-If you haven’t set up SSH access yet:
+If you haven’t set up SSH access yet then generate ssh keys
 
 ```bash
 ssh-keygen -t ed25519 -C "your_email@example.com"
@@ -52,7 +52,7 @@ git checkout -b devops/your-name/first-task
 
 ## 4. Install Required Tools
 
-Make sure the following are installed:
+Make sure the following are installed on your local machine:
 
 - Terraform (https://developer.hashicorp.com/terraform/install)
 
@@ -62,11 +62,12 @@ Make sure the following are installed:
 
 You need an IAM user with the following minimum permissions:
 
-- AmazonEC2FullAccess
+| Service | Permissions         |
+| ------- | ------------------- |
+| EC2     | AmazonEC2FullAccess |
+| S3      | AmazonS3FullAccess  |
 
-- AmazonS3FullAccess
-
-If you don't have IAM user with the permissions above, ask your AWS admin (artemkapset@gmail.com) to grant you required accesses
+If you don't have IAM user with the permissions above, ask your AWS admin (artemkapset@gmail.com or mamkindevops@gmail.com) to grant you required accesses (Organization ID: o-ziokp90k5r - for reference only).
 
 Export your IAM credentials:
 
@@ -75,7 +76,7 @@ export AWS_ACCESS_KEY_ID=your-key
 export AWS_SECRET_ACCESS_KEY=your-secret
 ```
 
-For Windows it's better to create ~/.aws/credentials file with the following content:
+For Windows it's better to create `~/.aws/credentials` file with the following content:
 
 ```
 [default]
@@ -89,18 +90,7 @@ Check access:
 aws sts get-caller-identity
 ```
 
-## 6. Test Terraform Locally (Optional)
-
-Navigate to the main infrastructure project:
-
-```bash
-cd terraform/main_project
-terraform init
-terraform validate
-terraform plan
-```
-
-## 7. Make a Change and Open a Pull Request
+## 6. Make a Change and Open a Pull Request
 
 Navigate to the main infrastructure project `cd terraform/main_project` and make the changes and/or updates you need.
 
@@ -112,7 +102,7 @@ terraform validate
 terraform plan
 ```
 
-and then if you are ok with results:
+and then if you are happy with results:
 
 ```bash
 git add .
