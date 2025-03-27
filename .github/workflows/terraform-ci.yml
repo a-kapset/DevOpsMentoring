@@ -6,6 +6,10 @@ on:
   push:
     branches: ['main']
 
+permissions:
+  contents: read
+  pull-requests: write
+
 env:
   TF_WORKING_DIR: terraform/main_project
   AWS_REGION: us-west-2
@@ -34,8 +38,23 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform plan
+        working-directory: terraform/main_project
+        run: terraform plan -no-color > plan.txt
+
+      - name: Post plan as PR comment
+        uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const plan = fs.readFileSync('terraform/main_project/plan.txt', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 📦 Terraform Plan Output\n\n\`\`\`hcl\n${plan}\n\`\`\``
+            });
 
   apply:
     name: Terraform Apply
