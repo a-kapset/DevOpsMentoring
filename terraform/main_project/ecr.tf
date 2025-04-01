@@ -13,23 +13,10 @@ resource "aws_ecr_lifecycle_policy" "ecr_policy" {
     rules = [
       {
         rulePriority = 1
-        description  = "Keep latest image only"
+        description  = "Remove images tagged as 'temp-' after 7 days"
         selection = {
           tagStatus     = "tagged"
-          tagPrefixList = ["latest"]
-          countType     = "imageCountMoreThan"
-          countNumber   = 1
-        }
-        action = {
-          type = "retain"
-        }
-      },
-      {
-        rulePriority = 2
-        description  = "Remove all other tagged images after 7 days"
-        selection = {
-          tagStatus     = "tagged"
-          tagPrefixList = [""]
+          tagPrefixList = ["temp-"]
           countType     = "sinceImagePushed"
           countUnit     = "days"
           countNumber   = 7
@@ -39,7 +26,7 @@ resource "aws_ecr_lifecycle_policy" "ecr_policy" {
         }
       },
       {
-        rulePriority = 3
+        rulePriority = 2
         description  = "Remove untagged images after 7 days"
         selection = {
           tagStatus   = "untagged"
