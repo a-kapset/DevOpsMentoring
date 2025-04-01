@@ -45,8 +45,8 @@ ssh -T git@github.com
 ## 3. Clone the Repository and Create a Branch
 
 ```bash
-git clone git@github.com:a-kapset/DevOpsMentoring.git
-cd DevOpsMentoring
+git clone git@github.com:MamkinDevOpsOrg/DevOps.Practice.Infrastructure.git
+cd ./DevOps.Practice.Infrastructure
 git checkout -b devops/your-name/first-task
 ```
 
@@ -66,6 +66,7 @@ You need an IAM user with the following minimum permissions:
 | ------- | ------------------- |
 | EC2     | AmazonEC2FullAccess |
 | S3      | AmazonS3FullAccess  |
+| ECR     | AmazonECRFullAccess |
 
 If you don't have IAM user with the permissions above, ask your AWS admin (artemkapset@gmail.com or mamkindevops@gmail.com) to grant you required accesses (Organization ID: o-ziokp90k5r - for reference only).
 
