@@ -19,5 +19,12 @@ variable "instance_type" {
 variable "instance_name" {
   description = "Value of the Name tag for the EC2 instance"
   type        = string
-  default     = "SimpleAppServerInstance"
+  default     = "app_server"
 }
+
+variable "key_pair_name_for_ssh" {
+  description = "Key-pair's name for ssh connection to EC2 instance"
+  type        = string
+  default     = "devops_practice"
+}
+
